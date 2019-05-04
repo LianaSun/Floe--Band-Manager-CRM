@@ -3,9 +3,8 @@ module.exports = function(sequelize, DataTypes) {
     name: DataTypes.STRING,
     phone: DataTypes.INTEGER,
     email: {
-      type: DataTypes,
-      validate: 
-      {isEmail: true}
+      type: DataTypes.STRING,
+      validate: { isEmail: true }
     },
     genre: DataTypes.STRING,
     socialMedia: DataTypes.TEXT
@@ -13,7 +12,7 @@ module.exports = function(sequelize, DataTypes) {
   Artist.associate = function(models){
     Artist.hasMany(models.Gig, {
       onDelete: "cascade"
-    })
-  }
+    });
+  };
   return Artist;
 };
