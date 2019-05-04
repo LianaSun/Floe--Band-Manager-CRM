@@ -22,8 +22,15 @@ app.engine(
 app.set("view engine", "handlebars");
 
 // Routes
-require("./routes/apiRoutes")(app);
-require("./routes/htmlRoutes")(app);
+//Example routes comment out if dont want it run
+// require("./routes/apiRoutes")(app);
+// require("./routes/htmlRoutes")(app);
+
+//Project routes
+require("./routes/html-routes.js")(app);
+require("./routes/artist-api-routes.js")(app);
+require("./routes/gig-api-routes.js")(app);
+require("./routes/venue-api-routes.js")(app);
 
 var syncOptions = { force: false };
 

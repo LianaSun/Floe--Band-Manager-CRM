@@ -5,7 +5,7 @@ module.exports = function(sequelize, DataTypes) {
     time: DataTypes.STRING
   });
 
-  Gig.assoicate = function(models) {
+  Gig.associate = function(models) {
     Gig.belongsTo(models.Artist, {
       foreignKey: {
         allowNull: false
