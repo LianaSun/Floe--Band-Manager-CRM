@@ -1,33 +1,18 @@
 require("dotenv").config();
 var express = require("express");
-var exphbs = require("express-handlebars");
 
 var db = require("./models");
 
 var app = express();
 var PORT = process.env.PORT || 3000;
 
-// Middleware
-app.use(express.urlencoded({ extended: false }));
+// Sets up the Express app to handle data parsing
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
 
-// Handlebars
-app.engine(
-  "handlebars",
-  exphbs({
-    defaultLayout: "main"
-  })
-);
-app.set("view engine", "handlebars");
-
-// Routes
-//Example routes comment out if dont want it run
-// require("./routes/apiRoutes")(app);
-// require("./routes/htmlRoutes")(app);
-
 //Project routes
-require("./routes/html-routes.js")(app);
+require("./routes/htmlRoutes")(app);
 require("./routes/artist-api-routes.js")(app);
 require("./routes/gig-api-routes.js")(app);
 require("./routes/venue-api-routes.js")(app);
