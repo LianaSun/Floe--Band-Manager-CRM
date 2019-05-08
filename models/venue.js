@@ -3,14 +3,14 @@ module.exports = function(sequelize, DataTypes) {
     name: DataTypes.STRING,
     address: DataTypes.STRING,
     contact: DataTypes.STRING,
-    phone: DataTypes.INTEGER,
+    phone: DataTypes.STRING,
     website: DataTypes.STRING
   });
 
-  Venue.associate = function(models){
-      Venue.hasMany(models.Gig, {
-          onDelete: "cascade"
-      });
-    };
+  Venue.associate = function(models) {
+    Venue.hasMany(models.Gig, {
+      onDelete: "cascade"
+    });
+  };
   return Venue;
 };
