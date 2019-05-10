@@ -18,7 +18,7 @@ module.exports = function(app) {
     // In this case, just db.Artist
     db.Gig.findAll({
       where: query,
-      include: [db.Artist]
+      include: [db.Artist, db.Venue]
     }).then(function(dbGig) {
       res.json(dbGig);
     });
@@ -33,7 +33,7 @@ module.exports = function(app) {
       where: {
         id: req.params.id
       },
-      include: [db.Artist]
+      include: [db.Artist, db.Venue]
     }).then(function(dbGig) {
       res.json(dbGig);
     });
