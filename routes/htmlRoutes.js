@@ -1,5 +1,6 @@
 var path = require("path");
 
+
 module.exports = function (app) {
   // Loads index page
   app.get("/", function (req, res) {
