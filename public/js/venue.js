@@ -11,7 +11,7 @@ $(document).ready(function() {
   // an venue
   $(document).on("submit", "#venue-form", handleVenueFormSubmit);
   $(document).on("click", ".delete-venue", handleDeleteButtonPress);
-  $(document).on("click", "button.edit", handlePostEdit);
+  $(document).on("click", ".edit-venue", handleEditVenueButtonPress);
   // Getting the initial list of Venues
   getVenues();
   // A function to handle what happens when the form is submitted to create a new Venue
@@ -126,15 +126,6 @@ $(document).ready(function() {
     venueContainer.append(alertDiv);
   }
 
-  // Function for handling what happens when the Edit button is selected
-  function handlePostEdit() {
-    var currentPost = $(this)
-      .parent()
-      .parent()
-      .data("venue");
-    window.location.href = "/edit-venue?VenueId=" + currentPost.id;
-  }
-
   // Function for handling what happens when the delete button is pressed
   function handleDeleteButtonPress() {
     var listItemData = $(this)
@@ -148,24 +139,11 @@ $(document).ready(function() {
     }).then(getVenues);
   }
 
-  function getPostData(id) {
-    $.get("/api/venues/" + id, function(data) {
-      if (data) {
-        // If this post exists, prefill our cms forms with its data
-        nameInput.val(data.name);
-        addressInput.val(data.address);
-        contactInput.val(data.contact);
-        phoneInput.val(data.phone);
-        websiteInput.val(data.website);
-        // If we have a post with this id, set a flag for us to know to update the post
-        // when we hit submit
-        updating = true;
-      }
-    });
-  }
-
-  if (url.indexOf("?VenueId=") !== -1) {
-    postId = url.split("=")[1];
-    getPostData(postId);
+  function handleEditVenueButtonPress() {
+    var currentPost = $(this)
+      .parent()
+      .parent()
+      .data("venue");
+    window.location.href = "/edit-venue?VenueId=" + currentPost.id;
   }
 });
