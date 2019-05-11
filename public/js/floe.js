@@ -20,18 +20,13 @@ $(document).ready(function() {
     if (url.indexOf("?ArtistId=") !== -1) {
       artistId = url.split("=")[1];
       getPosts(artistId);
-    }
-    // If there's no artistId we just get all posts as usual
-    else {
-      getPosts();
-    }
-    if (url.indexOf("?VenueId=") !== -1) {
+    } else if (url.indexOf("?VenueId=") !== -1) {
       venueId = url.split("=")[1];
       getVenue(venueId);
     }
     // If there's no artistId we just get all posts as usual
     else {
-      getVenue();
+      getPosts();
     }
     // This function grabs posts from the database and updates the view
     function getPosts(artist) {
