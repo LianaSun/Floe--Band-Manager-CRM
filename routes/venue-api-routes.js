@@ -27,7 +27,13 @@ module.exports = function(app) {
   });
 
   app.post("/api/venues", function(req, res) {
-    db.Venue.create(req.body).then(function(dbVenue) {
+    db.Venue.create({
+      name: req.body.name,
+      address: req.body.address,
+      contact: req.body.contact,
+      phone: req.body.phone,
+      website: req.body.website
+    }).then(function(dbVenue) {
       res.json(dbVenue);
     });
   });
@@ -39,6 +45,17 @@ module.exports = function(app) {
       }
     }).then(function(dbVenue) {
       res.json(dbVenue);
+    });
+  });
+
+  // PUT route for updating posts
+  app.put("/api/posts", function(req, res) {
+    db.Venue.update(req.body, {
+      where: {
+        id: req.body.id
+      }
+    }).then(function(results) {
+      res.json(results);
     });
   });
 };
