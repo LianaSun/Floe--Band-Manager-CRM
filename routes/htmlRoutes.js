@@ -6,8 +6,8 @@ module.exports = function(app) {
     res.sendFile(path.join(__dirname, "../public/html/floe.html"));
   });
 
-  //The input-gig route loads cms.html
-  app.get("/input-gig", function(req, res) {
+  //The cms route loads cms.html
+  app.get("/cms", function(req, res) {
     res.sendFile(path.join(__dirname, "../public/html/cms.html"));
   });
 

@@ -7,10 +7,12 @@ $(document).ready(function() {
   var websiteInput = $("#venue-website");
   var venueList = $("tbody");
   var venueContainer = $(".venue-container");
+  var updating = false;
   // Adding event listeners to the form to create a new object, and the button to delete
   // an venue
   $(document).on("submit", "#venue-form", handleVenueFormSubmit);
   $(document).on("click", ".delete-venue", handleDeleteButtonPress);
+  $(document).on("click", "button.edit", handlePostEdit);
   // Getting the initial list of Venues
   getVenues();
   // A function to handle what happens when the form is submitted to create a new Venue
@@ -73,7 +75,14 @@ $(document).ready(function() {
       "<td><a href='/floe?VenueId=" + venueData.id + "'>Go to Gigs</a></td>"
     );
     newTr.append(
-      "<td><a href='/cms?VenueId=" + venueData.id + "'>Create a Gig</a></td>"
+      "<td><a href='/add-venue?VenueId=" +
+        venueData.id +
+        "'>Create a Gig</a></td>"
+    );
+    newTr.append(
+      "<td><a href='/add-venue?VenueId=" +
+        venueData.id +
+        "'>Edit Venue</a></td>"
     );
     newTr.append(
       "<td><a style='cursor:pointer;color:red' class='delete-venue'>Delete Venue</a></td>"
@@ -116,6 +125,16 @@ $(document).ready(function() {
     alertDiv.text("You must create an Venue before you can create a Post.");
     venueContainer.append(alertDiv);
   }
+
+  // Function for handling what happens when the Edit button is selected
+  function handlePostEdit() {
+    var currentPost = $(this)
+      .parent()
+      .parent()
+      .data("venue");
+    window.location.href = "/add-venue?VenueId=" + currentPost.id;
+  }
+
   // Function for handling what happens when the delete button is pressed
   function handleDeleteButtonPress() {
     var listItemData = $(this)
@@ -127,5 +146,26 @@ $(document).ready(function() {
       method: "DELETE",
       url: "/api/venues/" + id
     }).then(getVenues);
+  }
+
+  function getPostData(id) {
+    $.get("/api/venues/" + id, function(data) {
+      if (data) {
+        // If this post exists, prefill our cms forms with its data
+        nameInput.val(data.name);
+        addressInput.val(data.address);
+        contactInput.val(data.contact);
+        phoneInput.val(data.phone);
+        websiteInput.val(data.website);
+        // If we have a post with this id, set a flag for us to know to update the post
+        // when we hit submit
+        updating = true;
+      }
+    });
+  }
+
+  if (url.indexOf("?VenueId=") !== -1) {
+    postId = url.split("=")[1];
+    getPostData(postId);
   }
 });
