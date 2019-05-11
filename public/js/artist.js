@@ -12,6 +12,7 @@ $(document).ready(function() {
   $(document).on("submit", "#artist-form", handleArtistFormSubmit);
   $(document).on("click", ".edit-artist", handleEditArtistButtonPress);
   $(document).on("click", ".delete-artist", handleDeleteButtonPress);
+
   // Getting the initial list of Artists
   getArtists();
 
@@ -45,8 +46,8 @@ $(document).ready(function() {
       throw new Error("Please input information!!!");
     }
 
-    // Calling the insertArtist function and passing in the value of the name input
-    insertArtist({
+    // Calling the upsertArtist function and passing in the value of the name input
+    upsertArtist({
       name: nameInput.val().trim(),
       phone: phoneInput.val().trim(),
       email: emailInput.val().trim(),
@@ -56,7 +57,7 @@ $(document).ready(function() {
   }
 
   // A function for creating an artist. Calls getArtists upon completion
-  function insertArtist(artistData) {
+  function upsertArtist(artistData) {
     $.post("/api/artists", artistData).then(getArtists);
   }
 
@@ -128,20 +129,6 @@ $(document).ready(function() {
     artistContainer.append(alertDiv);
   }
 
-  // Function for handling waht happens when the edit button is pressed
-  function handleEditArtistButtonPress() {
-    var listItemData = $(this)
-      .parent("td")
-      .parent("tr")
-      .data("artist");
-    var id = listItemData.id;
-    $.ajax({
-      method: "PUT",
-      url: "/api/artists/" + id,
-      data: post
-    }).then(getArtists);
-  }
-
   // Function for handling what happens when the delete button is pressed
   function handleDeleteButtonPress() {
     var listItemData = $(this)
@@ -153,5 +140,13 @@ $(document).ready(function() {
       method: "DELETE",
       url: "/api/artists/" + id
     }).then(getArtists);
+  }
+
+  function handleEditArtistButtonPress() {
+    var currentPost = $(this)
+      .parent()
+      .parent()
+      .data("artist");
+    window.location.href = "/edit-artist?post_id=" + currentPost.id;
   }
 });
