@@ -100,8 +100,10 @@ $(document).ready(function() {
 
   // This function constructs a post's HTML
   function createNewRow(post) {
-    var formattedDate = new Date(post.createdAt);
-    formattedDate = moment(formattedDate).format("MMMM Do YYYY, h:mm:ss a");
+    var formattedDate = new Date(post.date);
+    var formattedTime = post.time
+    formattedDate = moment(formattedDate).format("LL");
+    // formattedTime = moment(formattedTime).format("LT")
     var newPostCard = $("<div>");
     newPostCard.addClass("card");
     var newPostCardHeading = $("<div>");
@@ -113,9 +115,11 @@ $(document).ready(function() {
     editBtn.text("EDIT");
     editBtn.addClass("edit btn btn-info");
     var newPostTitle = $("<h2>");
-    var newPostDate = $("<small>");
+    var newPostDate = $("<br><small>");
+    var newPostTime = $("<br><small>");
     var newPostArtist = $("<h5>");
-    newPostArtist.text("Booked by Artist: " + post.Artist.name);
+    var newPostVenue = $("<h4>")
+    newPostArtist.text("Booked for: " + post.Artist.name);
     newPostArtist.css({
       float: "right",
       color: "blue",
@@ -126,14 +130,15 @@ $(document).ready(function() {
     newPostCardBody.addClass("card-body");
     var newPostBody = $("<p>");
     newPostTitle.text(post.name + " ");
-    newPostBody.text(post.body);
+    newPostVenue.text(post.Venue.name)
     newPostDate.text(formattedDate);
-    newPostTitle.append(newPostDate);
+    newPostTime.text(formattedTime);
+    newPostTitle.append(newPostDate).append(newPostTime);
     newPostCardHeading.append(deleteBtn);
     newPostCardHeading.append(editBtn);
     newPostCardHeading.append(newPostTitle);
     newPostCardHeading.append(newPostArtist);
-    newPostCardBody.append(newPostBody);
+    newPostCardHeading.append(newPostVenue)
     newPostCard.append(newPostCardHeading);
     newPostCard.append(newPostCardBody);
     newPostCard.data("post", post);

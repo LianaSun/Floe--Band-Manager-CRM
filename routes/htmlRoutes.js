@@ -1,43 +1,38 @@
 var path = require("path");
 
-
-module.exports = function (app) {
+module.exports = function(app) {
   // Loads index page
-  app.get("/", function (req, res) {
+  app.get("/", function(req, res) {
     res.sendFile(path.join(__dirname, "../public/html/floe.html"));
   });
 
-  app.get("/cms", function (req, res) {
+  //The input-gig route loads cms.html
+  app.get("/input-gig", function(req, res) {
     res.sendFile(path.join(__dirname, "../public/html/cms.html"));
   });
 
   // floe route loads floe.html
-  app.get("/floe", function (req, res) {
+  app.get("/floe", function(req, res) {
     res.sendFile(path.join(__dirname, "../public/html/floe.html"));
   });
 
   // artists route loads artist-manager.html
-  app.get("/artists", function (req, res) {
+  app.get("/artists", function(req, res) {
     res.sendFile(path.join(__dirname, "../public/html/artist-manager.html"));
   });
 
-  // Loads Artist page and pass in an example by id
-  // app.get("/artists", function (req, res) {
-  //   res.sendFile(path.join(__dirname, "../public/html/artist.html"));
-  // });
+  // artist input route loads add-artist.html
+  app.get("/add-artist", function(req, res) {
+    res.sendFile(path.join(__dirname, "../public/html/add-artist.html"));
+  });
 
-  // Loads Gigs ("shows") page and pass in an example by id
-  // app.get("/gigs", function (req, res) {
-  //   res.sendFile(path.join(__dirname, "../public/html/show.html"));
-  // });
+  // venues route load venues.html
+  app.get("/venues", function(req, res) {
+    res.sendFile(path.join(__dirname, "../public/html/venue-manager.html"));
+  });
 
-  // // Loads Venues page and pass in an example by id
-  // app.get("/venues", function (req, res) {
-  //   res.sendFile(path.join(__dirname, "../public/html/venue.html"));
-  // });
-
-  // Render homepage for any unmatched routes
-  // app.get("*", function(req, res) {
-  //   res.sendFile(path.join(__dirname, "../public/html/floe.html"));
-  // });
+  //  venue input rou page
+  app.get("/add-venue", function(req, res) {
+    res.sendFile(path.join(__dirname, "../public/html/add-venue.html"));
+  });
 };
