@@ -7,7 +7,6 @@ $(document).ready(function() {
   var websiteInput = $("#venue-website");
   var venueList = $("tbody");
   var venueContainer = $(".venue-container");
-  var updating = false;
   // Adding event listeners to the form to create a new object, and the button to delete
   // an venue
   $(document).on("submit", "#venue-form", handleVenueFormSubmit);
@@ -75,14 +74,15 @@ $(document).ready(function() {
       "<td><a href='/floe?VenueId=" + venueData.id + "'>Go to Gigs</a></td>"
     );
     newTr.append(
-      "<td><a href='/add-venue?VenueId=" +
-        venueData.id +
-        "'>Create a Gig</a></td>"
+      "<td><a href='/cms?VenueId=" + venueData.id + "'>Create a Gig</a></td>"
     );
+    // newTr.append(
+    //   "<td><a href='/edit-venue?VenueId=" +
+    //     venueData.id +
+    //     "'>Edit Venue</a></td>"
+    // );
     newTr.append(
-      "<td><a href='/add-venue?VenueId=" +
-        venueData.id +
-        "'>Edit Venue</a></td>"
+      "<td><a style='cursor:pointer;color:blue' class='edit-venue'>Edit Venue</a></td>"
     );
     newTr.append(
       "<td><a style='cursor:pointer;color:red' class='delete-venue'>Delete Venue</a></td>"
@@ -132,7 +132,7 @@ $(document).ready(function() {
       .parent()
       .parent()
       .data("venue");
-    window.location.href = "/add-venue?VenueId=" + currentPost.id;
+    window.location.href = "/edit-venue?VenueId=" + currentPost.id;
   }
 
   // Function for handling what happens when the delete button is pressed

@@ -21,9 +21,9 @@ module.exports = function(app) {
     res.sendFile(path.join(__dirname, "../public/html/artist-manager.html"));
   });
 
-  // artist input route loads add-artist.html
-  app.get("/add-artist", function(req, res) {
-    res.sendFile(path.join(__dirname, "../public/html/add-artist.html"));
+  // artists route edit artist-manager.html
+  app.get("/edit-artist", function(req, res) {
+    res.sendFile(path.join(__dirname, "../public/html/edit-artist.html"));
   });
 
   // venues route load venues.html
@@ -31,8 +31,8 @@ module.exports = function(app) {
     res.sendFile(path.join(__dirname, "../public/html/venue-manager.html"));
   });
 
-  //  venue input rou page
-  app.get("/add-venue", function(req, res) {
-    res.sendFile(path.join(__dirname, "../public/html/add-venue.html"));
+  // artists route edit artist-manager.html
+  app.get("/edit-venue", function(req, res) {
+    res.sendFile(path.join(__dirname, "../public/html/edit-venue.html"));
   });
 };

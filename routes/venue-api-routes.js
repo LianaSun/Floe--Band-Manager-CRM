@@ -48,14 +48,14 @@ module.exports = function(app) {
     });
   });
 
-  // PUT route for updating posts
-  app.put("/api/posts", function(req, res) {
+  // PUT route for updating venues
+  app.put("/api/venues", function(req, res) {
     db.Venue.update(req.body, {
       where: {
         id: req.body.id
       }
-    }).then(function(results) {
-      res.json(results);
+    }).then(function(dbVenue) {
+      res.json(dbVenue);
     });
   });
 };
